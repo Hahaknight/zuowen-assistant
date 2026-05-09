@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>作文批改助手</h1>
+    </header>
+
+    <section class="mode-selector">
+      <button class="mode-btn active" data-mode="exam">考试模式</button>
+      <button class="mode-btn" data-mode="daily">日常批改</button>
+    </section>
+
+    <section class="api-key-section">
+      <label for="apiKey">MiniMax API Key</label>
+      <input type="password" id="apiKey" placeholder="输入 API Key">
+    </section>
+
+    <section class="rules-section">
+      <label for="rules">评分规则</label>
+      <textarea id="rules" rows="5" placeholder="输入评分规则，例如：
+本次作文题目：我的妈妈
+评分维度：
+1. 内容（0-25分）：是否切题，内容是否充实
+2. 结构（0-10分）：段落是否清晰，逻辑是否通顺
+3. 语言（0-15分）：用词是否准确，语句是否流畅"></textarea>
+    </section>
+
+    <!-- 考试模式区域 -->
+    <section id="examSection" class="section">
+      <details class="selector-config">
+        <summary>DOM 选择器配置（点击展开）</summary>
+        <div class="selector-inputs">
+          <div class="selector-row">
+            <label for="essaySelector">作文区域选择器</label>
+            <input type="text" id="essaySelector" placeholder="例如：.essay-content 或 #main-essay">
+          </div>
+          <div class="selector-row">
+            <label for="scoreSelector">分数按钮选择器</label>
+            <input type="text" id="scoreSelector" placeholder="例如：.score-btn 或 button[data-score]">
+          </div>
+          <button id="saveSelectorsBtn" class="btn secondary">保存配置</button>
+        </div>
+      </details>
+      <div class="exam-controls">
+        <button id="extractBtn" class="btn primary">读取作文内容</button>
+        <button id="autoGradeBtn" class="btn primary" disabled>AI 评分并打分</button>
+      </div>
+      <div id="examStatus" class="status"></div>
+      <div id="essayContent" class="content-preview"></div>
+    </section>
+
+    <!-- 日常模式区域 -->
+    <section id="dailySection" class="section hidden">
+      <div class="backend-config">
+        <label for="backendUrl">后端服务地址</label>
+        <input type="text" id="backendUrl" value="http://localhost:3002" placeholder="后端服务地址">
+      </div>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="imageInput" accept="image/*" hidden>
+        <div class="upload-placeholder">
+          <span class="upload-icon">📷</span>
+          <p>点击上传作文图片</p>
+        </div>
+        <img id="previewImage" class="hidden">
+      </div>
+      <button id="gradeImageBtn" class="btn primary" disabled>AI 评分</button>
+      <div id="dailyStatus" class="status"></div>
+    </section>
+
+    <!-- 评分结果 -->
+    <section id="resultSection" class="section hidden">
+      <h2>评分结果</h2>
+      <div class="score-display">
+        <span class="score-label">总分</span>
+        <span id="totalScore" class="score-value">--</span>
+      </div>
+      <div id="resultDetails" class="result-details"></div>
+    </section>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

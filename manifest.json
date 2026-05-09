@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "作文批改助手",
+  "version": "1.0.0",
+  "description": "AI 辅助作文批改，自动评分",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "https://api.minimaxi.com/*",
+    "http://localhost:3001/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "作文批改助手"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
